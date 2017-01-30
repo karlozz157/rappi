@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-rappy
-=====
+1- <code>git clone https://github.com/karlozz157/rappi.git</code>
 
-A Symfony project created on January 27, 2017, 10:09 pm.
-=======
-# rappy
->>>>>>> eb71d208df0b7ae22e77d09480683e396cc53ae7
+2- <code>cd rappi</code>
+
+3- <code>composer install</code>
+
+4- <code>php app/console server:run</code>
