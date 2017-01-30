@@ -56,29 +56,29 @@ class CubeSummation
      * @return void
      */
     public function update(Matrix $matrix)
-    {
+    {        
         $x = $matrix->getX();
         $y = $matrix->getY();
         $z = $matrix->getZ();
         $w = $matrix->getValue();
 
-        if ($x < self::CONSTRAINT_MIN || $x > $this->n) {
+        if (!($x >= self::CONSTRAINT_MIN || $x <= $this->n)) {
             throw new \Exception('Constraint: 1 <= x <= N ');
         }
 
-        if ($y < self::CONSTRAINT_MIN || $y > $this->n) {
+        if (!($y >= self::CONSTRAINT_MIN || $y <= $this->n)) {
             throw new \Exception('Constraint: 1 <= y <= N ');
         }
 
-        if ($z < self::CONSTRAINT_MIN || $z > $this->n) {
+        if (!($z >= self::CONSTRAINT_MIN || $z <= $this->n)) {
             throw new \Exception('Constraint: 1 <= z <= N ');
         }
 
-        if ($w < pow(-10, 9) || $w > pow(10, 9)) {
+        if (!($w >= pow(-10, 9) || $w <= pow(10, 9))) {
             throw new Error('Constraint: -10^9 <= W <= 10^9');
         }
-
-        $this->matrix[$x][$y][$z] = $x;
+        
+        $this->matrix[$x][$y][$z] = $w;
     }
 
     /**
@@ -99,39 +99,39 @@ class CubeSummation
         $y2 = $matrix2->getY();
         $z2 = $matrix2->getZ();
         
-        if ($x1 < self::CONSTRAINT_MIN || $x1 > $this->n) {
-            throw new \Exception('Constraint: x1 > 1 || x1 < n');
+        if (!($x1 >= self::CONSTRAINT_MIN || $x1 <= $this->n)) {
+            throw new \Exception('Constraint: x1 >= 1 || x1 <= n');
         }
 
-        if ($y1 < self::CONSTRAINT_MIN || $y1 > $this->n) {
-            throw new \Exception('Constraint: y1 > 1 || y1 < n');
+        if (!($y1 >= self::CONSTRAINT_MIN || $y1 <= $this->n)) {
+            throw new \Exception('Constraint: y1 >= 1 || y1 <= n');
         }
 
-        if ($z1 < self::CONSTRAINT_MIN || $z1 > $this->n) {
-            throw new \Exception('Constraint: z1 > 1 || z1 < n');
+        if (!($z1 >= self::CONSTRAINT_MIN || $z1 <= $this->n)) {
+            throw new \Exception('Constraint: z1 >= 1 || z1 <= n');
         }
 
-        if ($x2 < self::CONSTRAINT_MIN || $x2 > $this->n) {
-            throw new \Exception('Constraint: x2 > 1 || x2 < n');
+        if (!($x2 >= self::CONSTRAINT_MIN || $x2 <= $this->n)) {
+            throw new \Exception('Constraint: x2 >= 1 || x2 <= n');
         }
 
-        if ($y2 < self::CONSTRAINT_MIN || $y2 > $this->n) {
-            throw new \Exception('Constraint: y2 > 1 || y2 < n');
+        if (!($y2 >= self::CONSTRAINT_MIN || $y2 <= $this->n)) {
+            throw new \Exception('Constraint: y2 >= 1 || y2 <= n');
         }
 
-        if ($z2 < self::CONSTRAINT_MIN || $z2 > $this->n) {
-            throw new \Exception('Constraint: z2 > 1 || z2 < n');
+        if (!($z2 >= self::CONSTRAINT_MIN || $z2 <= $this->n)) {
+            throw new \Exception('Constraint: z2 >= 1 || z2 <= n');
         }
 
-        if ($x1 > $x2) {
+        if (!($x1 <= $x2)) {
             throw new \Exception('Constraint: x1 <= x2');
         }
 
-        if ($y1 > $y2) {
+        if (!($y1 <= $y2)) {
             throw new \Exception('Constraint: y1 <= y2');
         }
 
-        if ($z1 > $z2) {
+        if (!($z1 <= $z2)) {
             throw new \Exception('Constraint: z1 <= z2');
         }
 
