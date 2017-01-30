@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src=" https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js " integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa " crossorigin="anonymous "></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Rappi - Cube Summation</h1>
+            <form method="post">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="input">Input</label>
+                        {{ form_widget(form.input, {'attr': {'class': 'form-control', 'id': 'input', 'cols': 30, 'rows': 10}}) }}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="output">Output</label>
+                        <textarea class="form-control" id="output" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px !important;">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary m-t-1" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+            var codeSummation = function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                $.post('/rappi/cube-summation', form.serializeArray())
+                    .done(function(response) {
+                        $('#output').html(response.output);
+                    })
+                    .fail(function(response) {
+                        $('#output').html(response.output);
+                    });
+            };
+
+            $(function() {
+                $('form').on('submit', codeSummation);
+            });
+        </script>
+    </body>
+</html>
