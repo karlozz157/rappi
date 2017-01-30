@@ -18,12 +18,12 @@ class CubeSummationProcessor
     }
 
     /**
-     * @param mixed $commands
+     * @param mixed $input
      *
      * @return string
      */
-    public function process($commands)
+    public function process($input)
     {
-        return $this->adapter->process($commands);
+        return $this->adapter->process($input);
     }
 }

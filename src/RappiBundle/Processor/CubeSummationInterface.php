@@ -5,9 +5,9 @@ namespace RappiBundle\Processor;
 interface CubeSummationInterface
 {
     /**
-     * @param mixed $commands
+     * @param mixed $input
      *
      * @return string
      */
-    public function process($commands);
+    public function process($input);
 }
