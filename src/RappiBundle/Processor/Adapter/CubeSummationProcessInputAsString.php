@@ -3,6 +3,7 @@
 namespace RappiBundle\Processor\Adapter;
 
 use RappiBundle\DataStructure\CubeSummation;
+use RappiBundle\Entity\Matrix;
 use RappiBundle\Processor\CubeSummationInterface;
 
 class CubeSummationProcessInputAsString implements CubeSummationInterface
@@ -29,17 +30,18 @@ class CubeSummationProcessInputAsString implements CubeSummationInterface
     protected $cube;
 
     /**
-     * @param string $commands
+     * @param string $input
      *
      * @return string
      */
-    public function process($commands)
+    public function process($input)
     {
+        $commands = explode(PHP_EOL, $input);
         $output = '';
         $m = 0;
         $n = 0;
 
-        foreach (explode(PHP_EOL, $commands) as $command) {
+        foreach ($commands as $command) {
             $command = trim($command);
 
             if ($this->isDefineCube($command)) {
@@ -48,25 +50,25 @@ class CubeSummationProcessInputAsString implements CubeSummationInterface
                 $m = $cubeDefinition[self::CUBE_M];
 
                 $this->cube = new CubeSummation($n);
+
+                if ($this->isNotValidM($m)) {
+                    throw new \Exception('Constraint: 1 <= M <= 1000');
+                }
             }
 
-            if ($m < self::M_MIN || $m >= self::M_MAX) {
-                throw new \Exception('Constraint: 1 <= M <= 1000');
-            }
-
-            if (!$m) {
+            if ($this->cube && !$m) {
                 continue;
             }
 
             if ($this->isUpdateCommand($command)) {
                 $this->prepareUpdate($command);
+                $m--;
             }
 
             if ($this->isQueryCommand($command)) {
                 $output .= $this->prepareQuery($command) . PHP_EOL;
+                $m--;
             }
-
-            $m--;
         }
 
         return $output;
@@ -82,6 +84,16 @@ class CubeSummationProcessInputAsString implements CubeSummationInterface
         return self::CUBE_DEFINITION === count($this->parseCommand($command));
     }
 
+    /**
+     * @param string $m
+     * 
+     * @return boolean
+     */
+    protected function isNotValidM($m)
+    {
+        return ($m < self::M_MIN || $m > self::M_MAX);
+    }
+    
     /** 
      * @param string $command
      *
@@ -148,7 +160,7 @@ class CubeSummationProcessInputAsString implements CubeSummationInterface
         $matrix2
             ->setX(($query[4] - 1))
             ->setY(($query[5] - 1))
-            ->setZ($query[6]);
+            ->setZ(($query[6] - 1));
 
         return $this->cube->query($matrix1, $matrix2);
     }
