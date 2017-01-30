@@ -46,10 +46,10 @@ class RappiController extends Controller
         if (!$form->isValid()) {
             $output = $form->getErrors();
             $status = Response::HTTP_BAD_REQUEST;
+        } else {
+            $input  = $form->getData()['input'];
+            $output = $this->get('rappi.cube_summation.handler')->process($input);   
         }
-
-        $input  = $form->getData()['input'];
-        $output = $this->get('rappi.cube_summation.handler')->process($input);
 
         return new JsonResponse(['output' => $output], $status);
     }
