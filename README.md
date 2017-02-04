@@ -1,3 +1,7 @@
+# WebApp Rappi
+WebApp to work in https://www.rappi.com
+
+
 1- <code>git clone https://github.com/karlozz157/rappi.git</code>
 
 2- <code>cd rappi</code>
